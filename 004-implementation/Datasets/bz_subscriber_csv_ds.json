@@ -1,0 +1,81 @@
+{
+    "name": "bz_subscriber_csv_ds",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureDataLakeStorage1",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": "subscriber.csv",
+                "fileSystem": "bronze"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": [
+            {
+                "name": "sub _id",
+                "type": "String"
+            },
+            {
+                "name": "first_name",
+                "type": "String"
+            },
+            {
+                "name": "last_name",
+                "type": "String"
+            },
+            {
+                "name": "Street",
+                "type": "String"
+            },
+            {
+                "name": "Birth_date",
+                "type": "String"
+            },
+            {
+                "name": "Gender",
+                "type": "String"
+            },
+            {
+                "name": "Phone",
+                "type": "String"
+            },
+            {
+                "name": "Country",
+                "type": "String"
+            },
+            {
+                "name": "City",
+                "type": "String"
+            },
+            {
+                "name": "ZipCode",
+                "type": "String"
+            },
+            {
+                "name": "Subgrp_id",
+                "type": "String"
+            },
+            {
+                "name": "Elig_ind",
+                "type": "String"
+            },
+            {
+                "name": "eff_date",
+                "type": "String"
+            },
+            {
+                "name": "term_date",
+                "type": "String"
+            }
+        ]
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

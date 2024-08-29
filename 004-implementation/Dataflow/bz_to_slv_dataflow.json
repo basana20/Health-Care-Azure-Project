@@ -1,0 +1,400 @@
+{
+    "name": "bz_to_slv_dataflow",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "bz_disease_csv_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "BzDiseaseSource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "bz_group_csv_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "BzGroupCsvDs"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "bz_grpsubgrp_csv_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "BzGrpsubgrpCsvSource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "bz_hospital_csv_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "BzHospitalCsvSource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "bz_patient_records_csv_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "PatientRecordsCsvSource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "bz_subgroup_csv_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "BzSubgroupCsvSource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "bz_subscriber_csv_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "SubscriberCsvSource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "bz_claims_json_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "BzClaimsJsonSource"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "diseaseSink"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "groupSink"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "grpsubgrpSink"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "HospitalSink"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "Patientsink"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "subgroupSink"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "subscriberSink"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "slv_prqut_ds",
+                        "type": "DatasetReference"
+                    },
+                    "name": "claimsSink"
+                }
+            ],
+            "transformations": [
+                {
+                    "name": "select1"
+                },
+                {
+                    "name": "select2"
+                },
+                {
+                    "name": "select3"
+                },
+                {
+                    "name": "select4"
+                },
+                {
+                    "name": "select5"
+                },
+                {
+                    "name": "select6"
+                },
+                {
+                    "name": "select7"
+                },
+                {
+                    "name": "select8"
+                }
+            ],
+            "scriptLines": [
+                "parameters{",
+                "     dynamicFolderName as string",
+                "}",
+                "source(output(",
+                "          SubGrpID as string,",
+                "          { Disease_ID} as integer,",
+                "          Disease_name as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: true,",
+                "     inferDriftedColumnTypes: true,",
+                "     ignoreNoFilesFound: false) ~> BzDiseaseSource",
+                "source(output(",
+                "          Country as string,",
+                "          premium_written as integer,",
+                "          zipcode as integer,",
+                "          Grp_Id as string,",
+                "          Grp_Name as string,",
+                "          Grp_Type as string,",
+                "          city as string,",
+                "          year as short",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: true,",
+                "     inferDriftedColumnTypes: true,",
+                "     ignoreNoFilesFound: false) ~> BzGroupCsvDs",
+                "source(output(",
+                "          SubGrp_ID as string,",
+                "          Grp_Id as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: true,",
+                "     inferDriftedColumnTypes: true,",
+                "     ignoreNoFilesFound: false) ~> BzGrpsubgrpCsvSource",
+                "source(output(",
+                "          Hospital_id as string,",
+                "          Hospital_name as string,",
+                "          city as string,",
+                "          state as string,",
+                "          country as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: true,",
+                "     inferDriftedColumnTypes: true,",
+                "     ignoreNoFilesFound: false) ~> BzHospitalCsvSource",
+                "source(output(",
+                "          Patient_id as integer,",
+                "          Patient_name as string,",
+                "          patient_gender as string,",
+                "          patient_birth_date as date,",
+                "          patient_phone as string,",
+                "          disease_name as string,",
+                "          city as string,",
+                "          hospital_id as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> PatientRecordsCsvSource",
+                "source(output(",
+                "          SubGrp_id as string,",
+                "          SubGrp_Name as string,",
+                "          Monthly_Premium as double",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: true,",
+                "     inferDriftedColumnTypes: true,",
+                "     ignoreNoFilesFound: false) ~> BzSubgroupCsvSource",
+                "source(output(",
+                "          {sub _id} as string,",
+                "          first_name as string,",
+                "          last_name as string,",
+                "          Street as string,",
+                "          Birth_date as date 'MM/dd/yyyy',",
+                "          Gender as string,",
+                "          Phone as string,",
+                "          Country as string,",
+                "          City as string,",
+                "          ZipCode as integer,",
+                "          Subgrp_id as string,",
+                "          Elig_ind as boolean,",
+                "          eff_date as date 'MM/dd/yyyy',",
+                "          term_date as date 'MM/dd/yyyy'",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     ignoreNoFilesFound: false) ~> SubscriberCsvSource",
+                "source(output(",
+                "          claim_id as integer,",
+                "          patient_id as integer,",
+                "          disease_name as string,",
+                "          SUB_ID as string,",
+                "          Claim_Or_Rejected as boolean,",
+                "          claim_type as string,",
+                "          claim_amount as double,",
+                "          claim_date as date",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: true,",
+                "     inferDriftedColumnTypes: true,",
+                "     ignoreNoFilesFound: false,",
+                "     documentForm: 'documentPerLine') ~> BzClaimsJsonSource",
+                "BzDiseaseSource select(mapColumn(",
+                "          sub_grp_id = SubGrpID,",
+                "          disease_id = { Disease_ID},",
+                "          disease_name = Disease_name",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select1",
+                "BzGroupCsvDs select(mapColumn(",
+                "          country = Country,",
+                "          premium_written,",
+                "          zipcode,",
+                "          group_id = Grp_Id,",
+                "          group_name = Grp_Name,",
+                "          group_type = Grp_Type,",
+                "          city,",
+                "          year",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select2",
+                "BzGrpsubgrpCsvSource select(mapColumn(",
+                "          sub_group_id = SubGrp_ID,",
+                "          group_id = Grp_Id",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select3",
+                "BzHospitalCsvSource select(mapColumn(",
+                "          hospital_id = Hospital_id,",
+                "          hospital_name = Hospital_name,",
+                "          city,",
+                "          state,",
+                "          country",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select4",
+                "PatientRecordsCsvSource select(mapColumn(",
+                "          patient_id = Patient_id,",
+                "          patient_name = Patient_name,",
+                "          patient_gender,",
+                "          patient_birth_date,",
+                "          patient_phone,",
+                "          disease_name,",
+                "          city,",
+                "          hospital_id",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select5",
+                "BzSubgroupCsvSource select(mapColumn(",
+                "          subgrp_id = SubGrp_id,",
+                "          sub_grp_name = SubGrp_Name,",
+                "          monthly_premium = Monthly_Premium",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select6",
+                "SubscriberCsvSource select(mapColumn(",
+                "          subscriber_id = {sub _id},",
+                "          first_name,",
+                "          last_name,",
+                "          street = Street,",
+                "          birth_date = Birth_date,",
+                "          gender = Gender,",
+                "          phone_number = Phone,",
+                "          country = Country,",
+                "          city = City,",
+                "          zipcode = ZipCode,",
+                "          subgrp_id = Subgrp_id,",
+                "          elig_ind = Elig_ind,",
+                "          eff_date,",
+                "          term_date",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select7",
+                "BzClaimsJsonSource select(mapColumn(",
+                "          claim_id,",
+                "          patient_id,",
+                "          disease_name,",
+                "          subscriber_id = SUB_ID,",
+                "          claim_accept_in = Claim_Or_Rejected,",
+                "          claim_type,",
+                "          claim_amount,",
+                "          claim_date",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select8",
+                "select1 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> diseaseSink",
+                "select2 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> groupSink",
+                "select3 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> grpsubgrpSink",
+                "select4 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> HospitalSink",
+                "select5 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> Patientsink",
+                "select6 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> subgroupSink",
+                "select7 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> subscriberSink",
+                "select8 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     format: 'parquet',",
+                "     umask: 0022,",
+                "     preCommands: [],",
+                "     postCommands: [],",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> claimsSink"
+            ]
+        }
+    }
+}

@@ -1,0 +1,117 @@
+{
+    "name": "health_care_etl_flow_pipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "hlt-bz-to-slv-df",
+                "type": "ExecuteDataFlow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataflow": {
+                        "referenceName": "bz_to_slv_dataflow",
+                        "type": "DataFlowReference",
+                        "parameters": {
+                            "dynamicFolderName": "$dynamicFolderName"
+                        },
+                        "datasetParameters": {
+                            "diseaseSink": {
+                                "folderName": "disease"
+                            },
+                            "groupSink": {
+                                "folderName": "group"
+                            },
+                            "grpsubgrpSink": {
+                                "folderName": "grpsubgrp"
+                            },
+                            "HospitalSink": {
+                                "folderName": "hospital"
+                            },
+                            "Patientsink": {
+                                "folderName": "patient"
+                            },
+                            "subgroupSink": {
+                                "folderName": "subgroup"
+                            },
+                            "subscriberSink": {
+                                "folderName": "subscriber"
+                            },
+                            "claimsSink": {
+                                "folderName": "claims"
+                            }
+                        }
+                    },
+                    "compute": {
+                        "coreCount": 8,
+                        "computeType": "General"
+                    },
+                    "traceLevel": "Fine"
+                }
+            },
+            {
+                "name": "health-care-load-hive-tables-nb",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "hlt-bz-to-slv-df",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/khadkabasana20@gmail.com/health-care-load-hive-tables-nb/health-care-load-hive-tables-nb"
+                },
+                "linkedServiceName": {
+                    "referenceName": "HealthCareAzureDatabricksLinkService",
+                    "type": "LinkedServiceReference"
+                }
+            },
+            {
+                "name": "health-care-B-logics",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "health-care-load-hive-tables-nb",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/khadkabasana20@gmail.com/health-care-load-hive-tables-nb/health-care-hive-logics-nb"
+                },
+                "linkedServiceName": {
+                    "referenceName": "HealthCareAzureDatabricksLinkService",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2024-08-28T06:27:41Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

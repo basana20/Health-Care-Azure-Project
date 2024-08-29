@@ -1,0 +1,65 @@
+{
+    "sku": {
+        "name": "Standard_LRS",
+        "tier": "Standard"
+    },
+    "kind": "StorageV2",
+    "id": "/subscriptions/daaea90a-f90a-4aab-beae-d1cc6f5a45b7/resourceGroups/health-care-rg/providers/Microsoft.Storage/storageAccounts/health1care1gen2stg",
+    "name": "health1care1gen2stg",
+    "type": "Microsoft.Storage/storageAccounts",
+    "location": "centralus",
+    "tags": {},
+    "properties": {
+        "dnsEndpointType": "Standard",
+        "defaultToOAuthAuthentication": false,
+        "publicNetworkAccess": "Enabled",
+        "keyCreationTime": {
+            "key1": "2024-08-23T20:36:17.3593096Z",
+            "key2": "2024-08-23T20:36:17.3593096Z"
+        },
+        "allowCrossTenantReplication": false,
+        "privateEndpointConnections": [],
+        "isSftpEnabled": false,
+        "minimumTlsVersion": "TLS1_2",
+        "allowBlobPublicAccess": false,
+        "allowSharedKeyAccess": true,
+        "largeFileSharesState": "Enabled",
+        "isHnsEnabled": true,
+        "networkAcls": {
+            "bypass": "AzureServices",
+            "virtualNetworkRules": [],
+            "ipRules": [],
+            "defaultAction": "Allow"
+        },
+        "supportsHttpsTrafficOnly": true,
+        "encryption": {
+            "requireInfrastructureEncryption": false,
+            "services": {
+                "file": {
+                    "keyType": "Account",
+                    "enabled": true,
+                    "lastEnabledTime": "2024-08-23T20:36:17.6405719Z"
+                },
+                "blob": {
+                    "keyType": "Account",
+                    "enabled": true,
+                    "lastEnabledTime": "2024-08-23T20:36:17.6405719Z"
+                }
+            },
+            "keySource": "Microsoft.Storage"
+        },
+        "accessTier": "Hot",
+        "provisioningState": "Succeeded",
+        "creationTime": "2024-08-23T20:36:17.2343180Z",
+        "primaryEndpoints": {
+            "dfs": "https://health1care1gen2stg.dfs.core.windows.net/",
+            "web": "https://health1care1gen2stg.z19.web.core.windows.net/",
+            "blob": "https://health1care1gen2stg.blob.core.windows.net/",
+            "queue": "https://health1care1gen2stg.queue.core.windows.net/",
+            "table": "https://health1care1gen2stg.table.core.windows.net/",
+            "file": "https://health1care1gen2stg.file.core.windows.net/"
+        },
+        "primaryLocation": "centralus",
+        "statusOfPrimary": "available"
+    }
+}

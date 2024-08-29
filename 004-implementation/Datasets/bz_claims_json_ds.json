@@ -1,0 +1,48 @@
+{
+    "name": "bz_claims_json_ds",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureDataLakeStorage1",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "Json",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": "claims.json",
+                "fileSystem": "bronze"
+            }
+        },
+        "schema": {
+            "type": "object",
+            "properties": {
+                "claim_id": {
+                    "type": "integer"
+                },
+                "patient_id": {
+                    "type": "integer"
+                },
+                "disease_name": {
+                    "type": "string"
+                },
+                "SUB_ID": {
+                    "type": "string"
+                },
+                "Claim_Or_Rejected": {
+                    "type": "string"
+                },
+                "claim_type": {
+                    "type": "string"
+                },
+                "claim_amount": {
+                    "type": "string"
+                },
+                "claim_date": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}
